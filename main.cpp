@@ -105,7 +105,7 @@ struct Student {
 	    uint32_t year;
 	    float sred_ball;
 	    int sex:1;
-	    uint8_t courses;
+	    uint8_t course;
 	    Student*starosta;
 };
 
@@ -115,12 +115,8 @@ int main()
     uint16_t op1= 1025;
     uint16_t op2=127;
     char operat = '&';
-  // cout << "1025 & 127" << endl;
-  //  cin>>chislo;
-   // print_in_hex(&chislo, sizeof(chislo));
     cout<< '\n';
-   // cout<<"  ";
-   // print_in_hex(127);
+
     cout<<'\n';
 
   uint8_t u8=0x42;
@@ -142,7 +138,87 @@ cout<<"\n";
 calc( op1, operat,  op2);
 cout<<"\n";
 
+         assert(nibble_to_hex(0x0) == '0');
+	    assert(nibble_to_hex(0x1) == '1');
+	    assert(nibble_to_hex(0x2) == '2');
+	    assert(nibble_to_hex(0x3) == '3');
+	    assert(nibble_to_hex(0x4) == '4');
+	    assert(nibble_to_hex(0x5) == '5');
+	    assert(nibble_to_hex(0x6) == '6');
+	    assert(nibble_to_hex(0x7) == '7');
+	    assert(nibble_to_hex(0x8) == '8');
+	    assert(nibble_to_hex(0x9) == '9');
+	    assert(nibble_to_hex(0xa) == 'a');
+	    assert(nibble_to_hex(0xb) == 'b');
+	    assert(nibble_to_hex(0xc) == 'c');
+	    assert(nibble_to_hex(0xd) == 'd');
+	    assert(nibble_to_hex(0xe) == 'e');
+	    assert(nibble_to_hex(0xf) == 'f');
+   Student students[3]={
+    {"Dima", 17, 4.3, 1, 1, nullptr},
+    {"Vera", 18, 4.7, 0, 1,&students[0]},
+    {"Oleg", 20, 3.4, 1, 2,&students[0]}
+  };
 
+
+    // адрес и размер массива, всех элементов массива
+    cout << "\n";
+    cout << "Address of Students: \t" << &students << endl;
+    cout << "Size of Students: \t" << sizeof(students) << endl;
+    cout << "Address of Students[1]: \t" << &students[1] << endl;
+    cout << "Size of Students[1]: \t" << sizeof(students[1]) << endl;
+    cout << "Address of Students[2]: \t" << &students[1] << endl;
+    cout << "Size of Students[2]: \t" << sizeof(students[1]) << endl;
+    cout << "Address of Students[3]: \t" << &students[2] << endl;
+    cout << "Size of Students[3]: \t" << sizeof(students[2]) << endl;
+    //адреса полей структуры
+    cout << "Address of name: \t" << &students[2].name << endl;
+    cout << "Address of year: \t" << &students[2].year << endl;
+    cout << "Address of sred_ball: \t" << &students[2].sred_ball << endl;
+    cout << "Address of course: \t" << &students[2].course << endl;
+    //смещение от начала структуры
+    cout << "Name is at offset: \t" << offsetof(Student, name) << endl; //Смещение от начала структуры
+    cout << "Year is at offset: \t" << offsetof(Student, year) << endl;
+    cout << "Sred is at offset: \t" << offsetof(Student, sred_ball) << endl;
+    cout << "Course is at offset: \t" << offsetof(Student, course) << endl;
+    //размер полей структуры
+    cout << "Size of name: \t" << sizeof(students[2].name) << endl;
+    cout << "Size of year: \t" << sizeof(students[2].year) << endl;
+    cout << "Size of sred_ball: \t" << sizeof(students[2].sred_ball) << endl;
+    cout << "Size of course: \t" << sizeof(students[2].course) << endl;
+    //шестнадцатеричное и двоичное представление полей структуры
+    cout << "Year in hex: \t";
+    print_in_hex(&students[2].year, sizeof(students[2].year));
+    cout << endl;
+    cout << "Sred in hex: \t";
+    print_in_hex(&students[2].sred_ball, sizeof(students[2].sred_ball));
+    cout << endl;
+    cout << "Course in hex: \t";
+    print_in_hex(&students[2].course, sizeof(students[2].course));
+    cout << endl;
+    cout << "Year in bin: \t";
+    print_in_binary(&students[2].year, sizeof(students[2].year));
+    cout << endl;
+    cout << "Sred in bin: \t";
+    print_in_binary(students[2].sred_ball);
+    cout << endl;
+    cout << "Course in bin: \t";
+    print_in_binary(students[2].course);
+    cout << endl;
+    //все элементы массива в шестнадцатеричном виде с указанием соответствия блоков байт полям структур
+
+    cout << "Eear sred_ball course \n";
+    for (int i = 0; i < 3; i++)
+    {
+        print_in_hex(&students[i].year, sizeof(students[i].year));
+        cout << "|";
+        print_in_hex(&students[i].sred_ball, sizeof(students[i].sred_ball));
+        cout << "|";
+        print_in_hex(&students[i].course, sizeof(students[i].course));
+        cout << endl;
+
+    }
+    return 0;
 
     }
 
